@@ -1,13 +1,19 @@
-import { useContext } from 'react';
+import { useContext } from 'react'
 
-import { CartContext } from '../../contexts/cart.context';
+import { CartContext } from '../../contexts/cart.context'
 
-import CheckoutItem from '../../components/checkout-item/checkout-item.component';
+import CheckoutItem from '../../components/checkout-item/checkout-item.component'
 
-import './checkout.styles.scss';
+import './checkout.styles.scss'
 
 const Checkout = () => {
-  const { cartItems, cartTotal } = useContext(CartContext);
+  const { cartItems, cartTotal } = useContext(CartContext)
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  })
+
 
   return (
     <div className='checkout-container'>
@@ -15,7 +21,7 @@ const Checkout = () => {
         <div className='header-block'>
           <span>Product</span>
         </div>
-        <div className='header-block'>
+        <div className='header-block'>  x
           <span>Description</span>
         </div>
         <div className='header-block'>
@@ -31,9 +37,9 @@ const Checkout = () => {
       {cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
-      <div className='total'>TOTAL: ${cartTotal}</div>
+      <div className='total'>TOTAL: {formatter.format(cartTotal)}</div>
     </div>
-  );
-};
+  )
+}
 
-export default Checkout;
+export default Checkout
